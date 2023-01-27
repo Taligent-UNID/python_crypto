@@ -11,7 +11,7 @@ def utf8(s: bytes):
     return str(s, 'utf-8')
 
 # Crea las claves pares en la carpeta "keys"
-def create_pair_keys():
+def create_pair_keys(filename):
     private_key = rsa.generate_private_key(
        public_exponent=65537,
        key_size=4096,
@@ -26,14 +26,14 @@ def create_pair_keys():
        encryption_algorithm=serialization.NoEncryption()
     )
 
-    with open('keys/private_key.pem', 'wb') as f:
+    with open(f'{filename}/private_key.pem', 'wb') as f:
         f.write(private_pem)
 
     public_pem = public_key.public_bytes(
        encoding=serialization.Encoding.PEM,
        format=serialization.PublicFormat.SubjectPublicKeyInfo
     )
-    with open('keys/public_key.pem', 'wb') as f:
+    with open(f'{filename}/public_key.pem', 'wb') as f:
         f.write(public_pem)
 
 def encrypt_password():
