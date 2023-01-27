@@ -13,6 +13,7 @@ class MainApp(tk.Tk):
         # UI options
         paddings = {'padx': 5, 'pady': 10}
         padTitles = {'padx': 10,'pady': 5}
+        padButtons = {'padx': 2,'pady':2}
 
         # configure the root window
         self.title('Secure Delivery of Credentials - Taligent')
@@ -92,7 +93,7 @@ class MainApp(tk.Tk):
             self.frame1,
             text='Save keys pair..',
             command=filename_path_frame1
-        ).pack()
+        ).pack(**padButtons)
 
         self.label_directory_frame1 = ttk.Label(
             self.frame1,
@@ -113,7 +114,7 @@ class MainApp(tk.Tk):
             state='disabled',
             command=generate_keys_message
         )
-        self.button_generate_frame1.pack()
+        self.button_generate_frame1.pack(**padButtons)
 
         # Frame 2 Generate Password Random
         self.frame2 = ttk.Frame(self)
@@ -142,7 +143,7 @@ class MainApp(tk.Tk):
             self.frame2,
             text='Generate',
             command=generate_password_label
-        ).pack()
+        ).pack(**padButtons)
 
         self.label_password_frame2.pack()
 
@@ -150,7 +151,7 @@ class MainApp(tk.Tk):
             self.frame2,
             text='Copy',
             command=lambda: pc.copy(self.label_password_frame2['text'])
-        ).pack()
+        ).pack(**padButtons)
     
         # Frame 3 Encrypt Password
         self.frame3 = ttk.Frame(self)
@@ -161,7 +162,7 @@ class MainApp(tk.Tk):
             self.frame3,
             text='Generate File Encrypt',
             style='Headings.TLabel'
-        ).pack(**padTitles)
+        ).pack(side='top',anchor='n',**padTitles)
 
         def filename_path_frame3():
             filename = filedialog.askdirectory()
@@ -173,14 +174,14 @@ class MainApp(tk.Tk):
             self.frame3,
             text='Save file encrypt..',
             command=filename_path_frame3
-        ).pack()
+        ).pack(side='top',**padButtons)
 
         self.label_directory_frame3 = ttk.Label(
             self.frame3,
             text='Path Save as file encrypt..',
             style='Subheadings.TLabel'
         )
-        self.label_directory_frame3.pack()
+        self.label_directory_frame3.pack(side='top')
 
         def search_public_key():
             filename = filedialog.askopenfilename()
@@ -191,14 +192,14 @@ class MainApp(tk.Tk):
             text='Select public key...',
             command=search_public_key
         )
-        self.button_public_key_frame3.pack()
+        self.button_public_key_frame3.pack(side='top',**padButtons)
 
         self.label_public_key_frame3 = ttk.Label(
             self.frame3,
             text='Path public key...',
             style='Subheadings.TLabel'
         )
-        self.label_public_key_frame3.pack()
+        self.label_public_key_frame3.pack(side='top')
 
         def temp_text(e):
             self.entry_password_frame3.delete(0,"end")
@@ -207,7 +208,7 @@ class MainApp(tk.Tk):
             self.frame3,
             width=30
         )
-        self.entry_password_frame3.pack()
+        self.entry_password_frame3.pack(side='top')
         self.entry_password_frame3.insert(0, "Password...")
         self.entry_password_frame3.bind("<FocusIn>", temp_text)
 
@@ -244,7 +245,7 @@ class MainApp(tk.Tk):
             text='Generate',
             command=generated_file_encrypt
         )
-        self.button_generate_frame3.pack()
+        self.button_generate_frame3.pack(side='top',**padButtons)
 
         # Frame 4 Decrypt File
         self.frame4 = ttk.Frame(self)
@@ -266,7 +267,7 @@ class MainApp(tk.Tk):
             self.frame4,
             text='Open file encrypt..',
             command=filename_path_frame4
-        ).pack()
+        ).pack(**padButtons)
 
         self.label_directory_frame4 = ttk.Label(
             self.frame4,
@@ -283,7 +284,7 @@ class MainApp(tk.Tk):
             self.frame4,
             text='Select private key...',
             command=search_private_key
-        ).pack()
+        ).pack(**padButtons)
 
         self.label_private_key_frame4 = ttk.Label(
             self.frame4,
@@ -323,14 +324,14 @@ class MainApp(tk.Tk):
             self.frame4,
             text='Generate',
             command=generate_decrypt_password
-        ).pack()
+        ).pack(**padButtons)
         self.label_password_frame4.pack()
 
         self.button_copy_pass_frame4 = ttk.Button(
             self.frame4,
             text='Copy',
             command=lambda: pc.copy(self.label_password_frame4['text'])
-        ).pack()
+        ).pack(**padButtons)
 
 if __name__ == '__main__':
     app = MainApp()
