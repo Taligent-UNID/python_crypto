@@ -36,35 +36,34 @@ def create_pair_keys(filename):
     with open(f'{filename}/public_key.pem', 'wb') as f:
         f.write(public_pem)
 
-def encrypt_password():
-    with open("keys/public_key.pem", "rb") as key_file:
+def encrypt_password(public_key,password,filename_encrypt):
+    with open(public_key, "rb") as key_file:
         public_key = serialization.load_pem_public_key(
             key_file.read(),
             backend=default_backend()
         )
 
-    plaintext = b'agAyYzeEFzV.AhDx6qqzzYRbsb.7zvX8'
     encrypted = base64.b64encode(public_key.encrypt(
-        plaintext,
+        password,
         padding.OAEP(
             mgf=padding.MGF1(algorithm=hashes.SHA512()),
             algorithm=hashes.SHA512(),
             label=None
         )
     ))
-    with open('files/file_encrypted.txt', 'wb') as f:
+    with open(f'{filename_encrypt}/file_encrypted.txt', 'wb') as f:
         f.write(encrypted)
 
-def decrypt_password(path_private_key):
+def decrypt_password(path_private_key,file_encrypted):
 
-    with open(f"{path_private_key}", "rb") as key_file:
+    with open(path_private_key, "rb") as key_file:
         private_key = serialization.load_pem_private_key(
             key_file.read(),
             password=None,
             backend=default_backend()
         )
     
-    with open('files/file_encrypted.txt','rb') as f:
+    with open(f'{file_encrypted}','rb') as f:
         encrypted = f.read()
 
     decrypted = private_key.decrypt(
@@ -76,8 +75,7 @@ def decrypt_password(path_private_key):
         )
     )
 
-    with open('files/file_decrypted.txt','wb') as f:
-        f.write(decrypted)
+    return decrypted
 
 
 def generate_password():

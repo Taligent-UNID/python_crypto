@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox as mb
-from rsa_encryption import create_pair_keys,generate_password
+from rsa_encryption import create_pair_keys,generate_password,encrypt_password,decrypt_password
 import pyperclip as pc
+from pathlib import Path
 
 class MainApp(tk.Tk):
     def __init__(self):
@@ -88,7 +89,8 @@ class MainApp(tk.Tk):
             text='Generate',
             state='disabled',
             command=generate_keys_message
-        ).pack()
+        )
+        self.button_generate_frame1.pack()
 
         # Frame 2 Generate Password Random
         self.frame2 = ttk.Frame(self)
@@ -140,9 +142,7 @@ class MainApp(tk.Tk):
         def filename_path_frame3():
             filename = filedialog.askdirectory()
             if filename:
-                self.label_directory_frame3.config(text=filename,textvariable=filename)
-                if self.label_private_key_frame3['textvariable']:
-                    self.button_generate_frame3.config(state='enabled')
+                self.label_directory_frame3.config(text=filename)
                 self.filename = filename
 
         self.button_directory_frame3 = ttk.Button(
@@ -157,31 +157,151 @@ class MainApp(tk.Tk):
         )
         self.label_directory_frame3.pack()
 
-        def search_private_key():
+        def search_public_key():
             filename = filedialog.askopenfilename()
-            self.label_private_key_frame3.config(text=filename,textvariable=filename)
-            if self.label_directory_frame3['textvariable']:
-                self.button_private_key_frame3.config(state='enabled')
+            self.label_public_key_frame3.config(text=filename)
 
-        self.button_private_key_frame3 = ttk.Button(
+        self.button_public_key_frame3 = ttk.Button(
             self.frame3,
-            text='Select private key...',
-            command=search_private_key
+            text='Select public key...',
+            command=search_public_key
         )
-        self.button_private_key_frame3.pack()
+        self.button_public_key_frame3.pack()
 
-        self.label_private_key_frame3 = ttk.Label(
+        self.label_public_key_frame3 = ttk.Label(
             self.frame3,
-            text='Path private key...'
+            text='Path public key...'
         )
-        self.label_private_key_frame3.pack()
+        self.label_public_key_frame3.pack()
+
+        def temp_text(e):
+            self.entry_password_frame3.delete(0,"end")
+
+        self.entry_password_frame3 = ttk.Entry(
+            self.frame3,
+            width=30
+        )
+        self.entry_password_frame3.pack()
+        self.entry_password_frame3.insert(0, "Password...")
+        self.entry_password_frame3.bind("<FocusIn>", temp_text)
+
+        def generated_file_encrypt():
+            validate = []
+            self.label_directory_frame3['text'] = self.label_directory_frame3['text'].replace('/','\\')
+            if str(Path.home()) not in str(self.label_directory_frame3['text']):
+                mb.showerror('SDC','Seleccionar carpeta de guardado de archivo encriptado')
+            else:
+                validate.append(True)
+            if 'public_key.pem' not in self.label_public_key_frame3['text']:
+                mb.showerror('SDC','Falta clave publica')
+            else:
+                validate.append(True)
+            if len(self.entry_password_frame3.get()) < 20:
+                mb.showerror('SDC','Contraseña muy corta')
+            else:
+                validate.append(True)
+            if len(validate) == 3:
+                encrypt_password(
+                    self.label_public_key_frame3['text'],
+                    bytes(self.entry_password_frame3.get(),'UTF-8'),
+                    self.label_directory_frame3['text']
+                )
+                mb.showinfo('SDC','Archivo encriptado generado')
+                self.label_public_key_frame3.config(text='Path public key...')
+                self.entry_password_frame3.delete(0,'')
+                self.entry_password_frame3.insert(0,'Password...')
+                self.label_directory_frame3.config(text='Path Save as file encrypt..')
+                validate = []
 
         self.button_generate_frame3 = ttk.Button(
             self.frame3,
             text='Generate',
-            state='disabled'
+            command=generated_file_encrypt
+        )
+        self.button_generate_frame3.pack()
+
+        # Frame 4 Decrypt File
+        self.frame4 = ttk.Frame(self)
+        self.frame4.config(width=400,height=400)
+        self.frame4.grid(row=2,column=1)
+        self.title_frame4 = ttk.Label(
+            self.frame4,
+            text='Generate Decrypt Password',
+            style='Headings.TLabel'
         ).pack()
 
+        def filename_path_frame4():
+            filename = filedialog.askopenfilename()
+            if filename:
+                self.label_directory_frame4.config(text=filename)
+                self.filename = filename
+
+        self.button_directory_frame4 = ttk.Button(
+            self.frame4,
+            text='Open file encrypt..',
+            command=filename_path_frame4
+        ).pack()
+
+        self.label_directory_frame4 = ttk.Label(
+            self.frame4,
+            text='Path file encrypt..'
+        )
+        self.label_directory_frame4.pack()
+
+        def search_private_key():
+            filename = filedialog.askopenfilename()
+            self.label_private_key_frame4.config(text=filename)
+
+        self.button_private_key_frame4 = ttk.Button(
+            self.frame4,
+            text='Select private key...',
+            command=search_private_key
+        ).pack()
+
+        self.label_private_key_frame4 = ttk.Label(
+            self.frame4,
+            text='Path private key...'
+        )
+        self.label_private_key_frame4.pack()
+
+        self.label_password_frame4 = ttk.Label(
+            self.frame4,
+            text='Password decrypt...'
+        )
+        def generate_decrypt_password():
+            validate = []
+            if 'file_encrypted.txt' not in str(self.label_directory_frame4['text']):
+                mb.showerror('SDC','Falta archivo encriptado')
+            else:
+                validate.append(True)
+            if 'private_key.pem' not in self.label_private_key_frame4['text']:
+                mb.showerror('SDC','Falta clave privada')
+            else:
+                validate.append(True)
+            if len(validate) == 2:
+                decrypted = decrypt_password(
+                    self.label_private_key_frame4['text'],
+                    self.label_directory_frame4['text']
+                )
+                self.label_password_frame4.config(text=decrypted)
+                pc.copy(decrypted.decode('utf-8'))
+                mb.showinfo('SDC','Password desencriptada y copiada...')
+                self.label_directory_frame4.config(text='Path file encrypt..')
+                self.label_private_key_frame4.config(text='Path private key...')
+                validate = []
+
+        self.button_generate_pass_frame4 = ttk.Button(
+            self.frame4,
+            text='Generate',
+            command=generate_decrypt_password
+        ).pack()
+        self.label_password_frame4.pack()
+
+        self.button_copy_pass_frame4 = ttk.Button(
+            self.frame4,
+            text='Copy',
+            command=lambda: pc.copy(self.label_password_frame4['text'])
+        ).pack()
 
 if __name__ == '__main__':
     app = MainApp()
