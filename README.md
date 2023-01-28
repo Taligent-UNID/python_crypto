@@ -49,3 +49,15 @@ Al obtener el archivo cifrado el nuevo usuario se dispone a desencriptar el arch
 AWS Cloud ofrece un segundo nivel de seguridad, al  colocar la contraseña administrada se debe volver a cambiar por una que el usuario genere. La App SDC permite generar una credencial de 20 caracteres alphanumericos de forma random. Logrando que este tipo de credenciales fortalezcan el acceso seguro.
 
 <img src="assets/UNID-4.jpg" width="520" height="600"/>
+
+## MFA
+
+Otro nivel seguridad sugerido es el MFA o Autenticacion Multifactor, el cual genera 6 numeros random cada 30 segundos, los cuales deben ser ingresados una vez introducido la contraseña de AWS Account. Logrando una validacion en tiempo real para un acceso seguro.
+
+En el caso de telefonos android se puede descargar la aplicacion "Google Authenticator" y los pasos de habilitacion en la cuenta cloud.
+
+[Documentacion AWS Cloud MFA Instalacion](https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html)
+
+[Documentacion Azure Cloud MFA Instalacion](https://learn.microsoft.com/es-es/azure/active-directory/authentication/howto-mfaserver-deploy)
+
+[Documentacion GCP Cloud MFA Instalacion](https://cloud.google.com/identity/solutions/enforce-mfa?hl=es)
