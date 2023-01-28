@@ -56,6 +56,8 @@ Otro nivel seguridad sugerido es el MFA o Autenticacion Multifactor, el cual gen
 
 En el caso de telefonos android se puede descargar la aplicacion "Google Authenticator" y los pasos de habilitacion en la cuenta cloud.
 
+<img src="assets/mfa.jpg"  width="750" height="400"/>
+
 [Documentacion AWS Cloud MFA Instalacion](https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html)
 
 [Documentacion Azure Cloud MFA Instalacion](https://learn.microsoft.com/es-es/azure/active-directory/authentication/howto-mfaserver-deploy)
