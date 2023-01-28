@@ -21,4 +21,5 @@ Python 3.9
 - Tkinter (Nativo)
 - Pathlib (Nativo)
 - Pyperclip 1.8.2
+- PyInstaller 5.7.0
 
