@@ -28,7 +28,7 @@ Es totalmente portable para Windows.
 
 Primero el usuario debe generar sus propias credenciales a traves de la app.exe almacenada en el repositorio de Github, compartiendo la clave publica con el Administrador Root, ya que esta llave solo cifra el texto.
 
-**El usuario NO DEBE COMPARTI su clave privada, de lo contrario se podria acceder al documento cifrado**
+**El usuario NO DEBE COMPARTI, NI ALMACENAR EN DRIVE su clave privada, de lo contrario se podria acceder al documento cifrado**
 
 <img src="assets/UNID-1.jpg" width="750" height="400"/>
 
