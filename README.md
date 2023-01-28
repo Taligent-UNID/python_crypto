@@ -46,7 +46,7 @@ Al obtener el archivo cifrado el nuevo usuario se dispone a des encriptar el arc
 
 ### Paso 4
 
-AWS Cloud ofrece un segundo nivel de seguridad, al colocar la contraseña administrada se debe volver a cambiar por una que el usuario genere. La App SDC permite generar una credencial de 20 caracteres alfaanuméricos de forma random. Logrando que este tipo de credenciales fortalezcan el acceso seguro.
+AWS Cloud ofrece un segundo nivel de seguridad, al colocar la contraseña administrada se debe volver a cambiar por una que el usuario genere. La App SDC permite generar una credencial de 20 caracteres alfanuméricos de forma random. Logrando que este tipo de credenciales fortalezcan el acceso seguro.
 
 <img src="assets/UNID-4.jpg" width="520" height="600"/>
 
