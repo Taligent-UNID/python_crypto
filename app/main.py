@@ -206,9 +206,10 @@ class MainApp(tk.Tk):
 
         self.entry_password_frame3 = ttk.Entry(
             self.frame3,
-            width=30
+            width=21,
+            font=('Roboto 12')
         )
-        self.entry_password_frame3.pack(side='top')
+        self.entry_password_frame3.pack(pady=5)
         self.entry_password_frame3.insert(0, "Password...")
         self.entry_password_frame3.bind("<FocusIn>", temp_text)
 
@@ -245,7 +246,7 @@ class MainApp(tk.Tk):
             text='Generate',
             command=generated_file_encrypt
         )
-        self.button_generate_frame3.pack(side='top',**padButtons)
+        self.button_generate_frame3.pack(pady=(10,38))
 
         # Frame 4 Decrypt File
         self.frame4 = ttk.Frame(self)
@@ -331,7 +332,7 @@ class MainApp(tk.Tk):
             self.frame4,
             text='Copy',
             command=lambda: pc.copy(self.label_password_frame4['text'])
-        ).pack(**padButtons)
+        ).pack(pady=(2,20))
 
 if __name__ == '__main__':
     app = MainApp()
