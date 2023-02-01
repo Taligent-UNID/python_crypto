@@ -1,6 +1,6 @@
 # Aplication SDC
 
-## Objetive
+## Objetivo
 
 La aplicacion tiene como objetivo un envio seguro de credenciales a traves de un cifrado asimetrico.
 
@@ -13,7 +13,18 @@ La aplicacion tiene como objetivo un envio seguro de credenciales a traves de un
 
 ## Enviroment
 
+**Windows**
+
 Python 3.9
+
+**MacOS**
+
+Python 3.10+
+
+En algunas versiones de Python en MacOs no viene nativo Tkinter por lo que hay que instalarlo
+
+`brew install python-tk`
+
 
 ### Requirements
 
@@ -22,4 +33,6 @@ Python 3.9
 - Pathlib (Nativo)
 - Pyperclip 1.8.2
 - PyInstaller 5.7.0
+- (MacOS) Pillow 9.4.0
+
 

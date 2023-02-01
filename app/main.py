@@ -5,6 +5,7 @@ from tkinter import messagebox as mb
 from rsa_encryption import create_pair_keys,generate_password,encrypt_password,decrypt_password
 import pyperclip as pc
 from pathlib import Path
+import platform
 
 class MainApp(tk.Tk):
     def __init__(self):
@@ -215,7 +216,9 @@ class MainApp(tk.Tk):
 
         def generated_file_encrypt():
             validate = []
-            self.label_directory_frame3['text'] = self.label_directory_frame3['text'].replace('/','\\')
+            #Ignore if MacOS
+            if platform.system() != 'Darwin':
+                self.label_directory_frame3['text'] = self.label_directory_frame3['text'].replace('/','\\')
             if str(Path.home()) not in str(self.label_directory_frame3['text']):
                 mb.showerror('SDC','Seleccionar carpeta de guardado de archivo encriptado')
             else:
