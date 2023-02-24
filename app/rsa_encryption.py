@@ -11,7 +11,7 @@ def utf8(s: bytes):
     return str(s, 'utf-8')
 
 # Crea las claves pares en la carpeta seleccionada
-def create_pair_keys(filename):
+def create_pair_keys(filename : str):
     private_key = rsa.generate_private_key(
        public_exponent=65537,
        key_size=4096,

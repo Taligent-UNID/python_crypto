@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-crypto"
+version = "0.1.1"
+description = "Secure Delivery of Credentials"
+authors = ["Kevin Barroso"]
+readme = "README.md"
+packages = [{include = "python_crypto"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cryptography = "39"
+typer = "^0.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
