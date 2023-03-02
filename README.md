@@ -18,15 +18,15 @@ En ese proceso de comunicación, el emisor y el receptor comparten entre ellos s
 <img src="assets/ae.png" width="400" height="250"/>
 
 
-## Aplication SDC
+## Aplication PyCrypto-Tali
 
-La App SDC o Secure delivery of credentials, ofrece una solución al problema de un envió seguro, generando un cifrado de encriptación RSA, creando una llave publica y una privada para el cifrado. Como tambien un des encriptación de la credencial.
+El proyecto SDC o Secure delivery of credentials, ofrece una solución al problema de un envió seguro, generando un cifrado de encriptación RSA, creando una llave publica y una privada para el cifrado. Como tambien un des encriptación de la credencial.
 
-Es totalmente portable para Windows.
+Se utiliza una libreria command line interface o cli.
 
 ### Paso 1
 
-Primero el usuario debe generar sus propias credenciales a traves de la app.exe almacenada en el repositorio de Github, compartiendo la clave publica con el Administrador Root, ya que esta llave solo cifra el texto.
+Primero el usuario debe generar sus propias credenciales a traves de la libreria, compartiendo la clave publica con el Administrador Root, ya que esta llave solo cifra el texto.
 
 **El usuario NO DEBE COMPARTI, NI ALMACENAR EN DRIVE su clave privada, de lo contrario se podria acceder al documento cifrado**
 
@@ -34,19 +34,19 @@ Primero el usuario debe generar sus propias credenciales a traves de la app.exe 
 
 ### Paso 2
 
-Una vez obtenida la clave pública por el Administrador Root, puede crear un nuevo usuario en la nube, para este ejemplo utilizaremos AWS Cloud, a través de la App SDC logra encriptar la contraseña generada por AWS, y realizar el envió seguro del archivo cifrado al nuevo usuario.
+Una vez obtenida la clave pública por el Administrador Root, puede crear un nuevo usuario en la nube, para este ejemplo utilizaremos AWS Cloud, a través de la cli logra encriptar la contraseña generada por AWS, y realizar el envió seguro del archivo cifrado al nuevo usuario.
 
 <img src="assets/UNID-2.jpg" width="520" height="600"/>
 
 ### Paso 3
 
-Al obtener el archivo cifrado el nuevo usuario se dispone a des encriptar el archivo cifrado junto con la clave privada por la App SDC, teniendo como resultado la contraseña de AWS generada de forma segura.
+Al obtener el archivo cifrado el nuevo usuario se dispone a des encriptar el archivo cifrado junto con la clave privada por la cli, teniendo como resultado la contraseña de AWS generada de forma segura.
 
 <img src="assets/UNID-3.jpg" width="520" height="600"/>
 
 ### Paso 4
 
-AWS Cloud ofrece un segundo nivel de seguridad, al colocar la contraseña administrada se debe volver a cambiar por una que el usuario genere. La App SDC permite generar una credencial de 20 caracteres alfanuméricos de forma random. Logrando que este tipo de credenciales fortalezcan el acceso seguro.
+AWS Cloud ofrece un segundo nivel de seguridad, al colocar la contraseña administrada se debe volver a cambiar por una que el usuario genere. La cli permite generar una credencial de 20 caracteres alfanuméricos de forma random. Logrando que este tipo de credenciales fortalezcan el acceso seguro.
 
 <img src="assets/UNID-4.jpg" width="520" height="600"/>
 
