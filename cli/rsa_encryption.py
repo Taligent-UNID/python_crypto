@@ -6,12 +6,14 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 import random, string
 
-
-def utf8(s: bytes):
+def utf8(s: bytes) -> str:
     return str(s, 'utf-8')
 
-# Crea las claves pares en la carpeta seleccionada
-def create_pair_keys(filename):
+def create_pair_keys(filename : str) -> None:
+    # Creacion de par de claves en el  directorio actual 
+    # Genera una clave privada y una clave publica 
+    # - public_key.pem 
+    # - private_key.pem
     private_key = rsa.generate_private_key(
        public_exponent=65537,
        key_size=4096,
@@ -36,8 +38,9 @@ def create_pair_keys(filename):
     with open(f'{filename}/public_key.pem', 'wb') as f:
         f.write(public_pem)
 
-# Encripta la password y genera el archivo cifrado
-def encrypt_password(public_key,password,filename_encrypt):
+def encrypt_password(public_key: str,password: str,filename_encrypt:str) -> None:
+    # Encriptacion de contraseña junto con la clave publica:
+    #   - public_key.pem
     with open(public_key, "rb") as key_file:
         public_key = serialization.load_pem_public_key(
             key_file.read(),
@@ -55,9 +58,11 @@ def encrypt_password(public_key,password,filename_encrypt):
     with open(f'{filename_encrypt}/file_encrypted.txt', 'wb') as f:
         f.write(encrypted)
 
-# Des encripta el archivo cifrado y retornando la password
-def decrypt_password(path_private_key,file_encrypted):
-
+def decrypt_password(path_private_key:str,file_encrypted:str) -> str:
+    # Desencripta el archivo encriptado por la clave publica
+    # Se necesita la clave privada para poder desencriptarlo
+    #   - private_key.pem
+    #   - file_encrypted.txt
     with open(path_private_key, "rb") as key_file:
         private_key = serialization.load_pem_private_key(
             key_file.read(),
@@ -76,12 +81,13 @@ def decrypt_password(path_private_key,file_encrypted):
             label=None
         )
     )
+    decryptedutf = utf8(decrypted)
+    return decryptedutf
 
-    return decrypted
-
-# Genera una password random alphanumerica de 20 caracteres
-def generate_password():
-    length = 20
+def generate_password(LEN:int) -> str:
+    # Genera una contraseña alfanumerica
+    # Default 20 length
+    length = LEN
     chars = string.ascii_letters + string.digits + '!@#$%^&*()'
     rnd = random.SystemRandom()
     return ''.join(rnd.choice(chars) for i in range(length))

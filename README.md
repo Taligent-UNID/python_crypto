@@ -63,3 +63,76 @@ En el caso de teléfonos android se puede descargar la aplicación "Google Authe
 [Documentacion Azure Cloud MFA Instalacion](https://learn.microsoft.com/es-es/azure/active-directory/authentication/howto-mfaserver-deploy)
 
 [Documentacion GCP Cloud MFA Instalacion](https://cloud.google.com/identity/solutions/enforce-mfa?hl=es)
+
+
+
+## Instalacion Pycrypto-Tali
+
+Herramienta Command Line Interface para el envio seguro de credenciales para python 3.7,3.8 y 3.9
+
+Se puede instalar desde:
+
+` pip install pycrypto-tali `
+
+El CLI utiliza el comando 'pct' PyCryptoTali, para realizar las siguientes acciones:
+
+- 'generate': Crea una contraseña alfanumerica de 20 caracteres.
+- 'create' : Crea una clave publica y una clave privada en el directorio actual.
+- 'encrypt': Encripta una contraseña con la clave publica generada para crear un archivo encriptado.
+- 'decrypt': Desencripta un archivo encriptado con la clave privada para devolver la contraseña encriptada.
+
+Estos comandos se pueden consultar con 'pct --help'
+
+## Instrucciones de Uso
+
+A continuacion se indica los pasos a seguir para enviar una clave de manera segura.
+Primero se debe tener instalado las versiones de python recomendadas (Python3.7,3.8 o 3.9)
+
+https://www.python.org/downloads/
+
+<img src="assets/cmd-version.png" />
+
+Una vez instalado se puede comenzar a instalar la libreria.
+
+`pip install pycrypto-tali`
+
+### Paso 1 -Generacion de contraseña aleatoria
+
+Se puede generar una clave a traves del comando:
+
+`pct generate`
+
+La contraseña por defecto es una cadena de 20 caracteres
+
+<img src="assets/pct-generate.png" />
+
+### Paso 2 - Generacion de claves
+
+Se generan una clave publica que puede ser compartida y publica en cualquier lugar, y una clave privada que debe ser almacenada en un lugar seguro, ya que es la unica que desencripta el mensaje.
+
+`pct create`
+
+<img src="assets/pct-create-dir.png" />
+
+Las claves generadas se generan en la ruta donde estamos ubicados en la terminal
+
+<img src="assets/explorer.png" />
+
+### Paso 3 - Encriptacion de Mensaje o Contraseña
+
+Si queremos recibir un mensaje o contraseña de manera segura por parte de un administrador, como el caso del Admin Root de AWS, al generar un contraseña, el puede encriptarla con la clave publica que le compartimos, utilizando la herramienta de pycrypto-tali o otra herramienta de encriptacion como por ejemplo OpenSSL, SSH. El resultado es un archivo encriptado en formato txt.
+
+`pct encrypt ` 
+
+
+<img src="assets/pct-encrypt.png" />
+
+### Paso 4 - Desencriptacion del archivo
+
+Al recibir el archivo encriptado debemos ubicarlo en la ubicacion del prompt o terminal, junto con la clave privada, para realizar el proceso de desencriptacion.
+
+`pct decrypt`
+
+<img src="assets/pct-decrypt.png" />
+
+Donde podemos visualizar la contraseña o mensaje secreto de forma segura.
